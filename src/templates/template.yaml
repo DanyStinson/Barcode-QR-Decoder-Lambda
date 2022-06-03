@@ -11,7 +11,7 @@ Resources:
       CompatibleRuntimes:
         - python3.7
       Content:
-        S3Bucket: "buzecd-aiml-demos"
+        S3Bucket: "aiml-samples-demos"
         S3Key: "qr-reader/assets/Pillow_Layer.zip"
       LayerName: "PillowLayer"
 
@@ -21,7 +21,7 @@ Resources:
       CompatibleRuntimes:
         - python3.7
       Content:
-        S3Bucket: "buzecd-aiml-demos"
+        S3Bucket: "aiml-samples-demos"
         S3Key: "qr-reader/assets/Pyzbar_Layer.zip"
       LayerName: "PyzbarLayer"
 
@@ -49,7 +49,7 @@ Resources:
     DependsOn: DecoderLambdaRole
     Properties:
       FunctionName: "Decoder-Function"
-      CodeUri: "s3://buzecd-aiml-demos/qr-reader/assets/lambda_function.zip"
+      CodeUri: "s3://aiml-samples-demos/qr-reader/assets/lambda_function.zip"
       Handler: "lambda_function.lambda_handler"
       Runtime: "python3.7"
       Timeout: 60
