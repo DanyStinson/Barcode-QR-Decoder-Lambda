@@ -21,13 +21,13 @@ With this Lambda Function you will be able to add decoding features to your appl
    * `sh Barcode-QR-Decoder-Lambda/src/code/setup.sh -b <BUCKET_NAME>`
 * Once the script finishes, you should see 3 new files in your S3 bucket under `BarcodeQRDecoder/qr-reader/assets/` path, the two Lambda layers containing the libraries needed (Pillow and Pyzbar) and the lambda code packaged in a .zip file
 
-![CloudShell](src/img/step-0_2.png)
+![S3Files](src/img/step-0_2.png)
 
 #### Step 1, Deploy your Lambda function
 * [Launch](https://eu-west-1.console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/create/review?templateURL=https://aiml-samples-demos.s3.eu-west-1.amazonaws.com/qr-reader/assets/template.yaml&stackName=BarcodeQRDecoder) the following **AWS CloudFormation Template** in your account (The link will automatically open the AWS CloudFormation console). **THIS TEMPLATE IS TO BE DEPLOYED IN EU-WEST-1 REGION ONLY**
 * Specify in the template parameter the same name of the S3 bucket as before 
 
-![Cloudformation](src/img/step-1.png)
+![CloudformationParams](src/img/step-1.png)
 * Check the AWS CloudFormation acknowledgements and click Create stack.
 
 ![Cloudformation](src/img/step-1_1.png)
