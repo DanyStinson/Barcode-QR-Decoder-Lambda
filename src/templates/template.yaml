@@ -2,17 +2,21 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: "AWS::Serverless-2016-10-31"
 Description: "Decode Barcodes and QR codes with AWS Lambda"
 
+Parameters:
+  BucketName:
+    Description: Name of the bucket
+    Type: String
+
 Resources:
   #AWS Lambda Function
-
   PillowLayer:
     Type: "AWS::Lambda::LayerVersion"
     Properties:
       CompatibleRuntimes:
         - python3.7
       Content:
-        S3Bucket: "aiml-samples-demos"
-        S3Key: "qr-reader/assets/Pillow_Layer.zip"
+        S3Bucket: !Ref BucketName
+        S3Key: "BarcodeQRDecoder/qr-reader/assets/pillow_layer.zip"
       LayerName: "PillowLayer"
 
   PyzbarLayer:
@@ -21,8 +25,8 @@ Resources:
       CompatibleRuntimes:
         - python3.7
       Content:
-        S3Bucket: "aiml-samples-demos"
-        S3Key: "qr-reader/assets/Pyzbar_Layer.zip"
+        S3Bucket: !Ref BucketName
+        S3Key: "BarcodeQRDecoder/qr-reader/assets/pyzbar_layer.zip"
       LayerName: "PyzbarLayer"
 
   DecoderLambdaRole:
@@ -49,7 +53,9 @@ Resources:
     DependsOn: DecoderLambdaRole
     Properties:
       FunctionName: "Decoder-Function"
-      CodeUri: "s3://aiml-samples-demos/qr-reader/assets/lambda_function.zip"
+      CodeUri: 
+        Bucket: !Ref BucketName
+        Key: "BarcodeQRDecoder/qr-reader/assets/lambda_function.zip"
       Handler: "lambda_function.lambda_handler"
       Runtime: "python3.7"
       Timeout: 60
