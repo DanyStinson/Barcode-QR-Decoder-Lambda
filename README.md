@@ -11,7 +11,7 @@ With this Lambda Function you will be able to add decoding features to your appl
 * **You will need to have an Amazon S3 Bucket created.**
 * **You will need to create a folder inside that bucket, where you will upload your images to decode.(Optional)**
 
-#### Step 1, Generate code artifacts and dependencies
+<a name="step1"></a> #### Step 1, Generate code artifacts and dependencies
 * Access AWS CloudShell, a browser-based shell inside the AWS console. You can click the terminal icon next to the search bar or looking for _Cloudshell_ in the service search bar.
 
 ![CloudShell](src/img/step-0_1.png)
@@ -63,6 +63,17 @@ You can see the logs your lambda function returns in the CloudWatch Logs console
 This example and the templates provided are to be deployed in **eu-west-1** region. If you wish to create your Lambda Function in a different region you have the function code available in the src/code folder.
 You will have to create a role for the AWS Lambda function to be able to interact with the Amazon S3 service. You will also have to create and add lambda layers to load dependencies the function needs. 
 
+**Generate code artifacts and dependencies**
+* Access AWS CloudShell .
+
+![CloudShell](src/img/step-0_1.png)
+* Once CloudShell has initiallized, clone this repo 
+   * `git clone https://github.com/aws-samples/Barcode-QR-Decoder-Lambda.git`
+* Run the `setup.sh` script in order to generate the needed lambda layers and code package. You must specify the bucket where you want to upload this artifacts replacing <BUCKET_NAME> with the S3 bucket name.
+   * `sh Barcode-QR-Decoder-Lambda/src/code/setup.sh -b <BUCKET_NAME>`
+* Once the script finishes, you should see 3 new files in your S3 bucket under `BarcodeQRDecoder/qr-reader/assets/` path, the two Lambda layers containing the libraries needed (Pillow and Pyzbar) and the lambda code packaged in a .zip file
+
+
 **Create your Lambda Function**
 * Create a new Lambda Function.
 * Select Author from scratch.
@@ -75,10 +86,10 @@ You will have to create a role for the AWS Lambda function to be able to interac
 * Upload the following [lambda_function.zip file](src/code/lambda_function.zip).
 
 **Create and add Lambda Layers**
-* Run the `setup.sh` script selecting a bucket from the region you want to deploy.
+* Follow the [Step 1](#step1) on this guide providing an S3 bucket in the region you would like to deploy the resources. All the artifacts will be uploaded there after the `setup.sh` script execution
     * Go to the Lambda function and in your layers section, select **Add Layer**
     * Select your layer which will be available at the Custom AWS layers dropdown.
-* Repeat the same process for bpth Pillow and Pyzbar layers.
+* Take the same steps for both Pillow and Pyzbar layers.
 
 **Enable Amazon S3 Access**
 * Head over to IAM and add permissions to your associated role to access your S3 Bucket.
